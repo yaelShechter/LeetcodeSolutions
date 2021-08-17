@@ -4,7 +4,7 @@ class TreeNode:
         self.left = left
         self.right = right
 
-def goodNodes(root: TreeNode) -> int:
+def good_nodes(root: TreeNode) -> int:
     def rec(node=root, maximum=root.val):
         if not node:
             return 0
@@ -16,12 +16,22 @@ def goodNodes(root: TreeNode) -> int:
     return rec()
   
   
+#I wrote a function to build a tree from a list to make it easier to test the function 
 #test case:
 #[3,1,4,3,null,1,5]
-son3 = TreeNode(3)
-son1 = TreeNode(1, son3)
-son11 = TreeNode(1)
-son5 = TreeNode(5)
-son4 = TreeNode(4, son11, son5)
-root = TreeNode(3, son1, son4)
-print(goodNodes(root))
+def create_tree_from_list(tree_list) -> TreeNode:
+    def rec(root, index):
+        if index < len(tree_list):
+            if tree_list[index]:
+                temp = TreeNode(tree_list[index])
+                root = temp
+            else:
+                return None
+            root.left = rec(root.left, 2 * index + 1)
+            root.right = rec(root.right, 2 * index + 2)
+        return root
+
+    return rec(TreeNode(), 0)
+
+tree = create_tree_from_list([3, 1, 4, 3, None, 1, 5])
+print(good_nodes(root))
