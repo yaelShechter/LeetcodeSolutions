@@ -5,24 +5,18 @@
 #         self.next = next
 class Solution:
     def merge_two_lists(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
-        dummy_node = ListNode()
-        l1_ptr = l1
-        l2_ptr = l2
-        new_list = dummy_node
-        while l1_ptr and l2_ptr:
-            if l1_ptr.val < l2_ptr.val:
-                new_list.next = l1_ptr
-                l1_ptr = l1_ptr.next
+        dummy_node = new_list = ListNode()
+        while l1 and l2:
+            if l1.val < l2.val:
+                new_list.next = l1
+                l1 = l1.next
             else:
-                new_list.next = l2_ptr
-                l2_ptr = l2_ptr.next
+                new_list.next = l2
+                l2 = l2.next
             new_list = new_list.next
-        if l1_ptr:
-            new_list.next = l1_ptr
-        if l2_ptr:
-            new_list.next = l2_ptr
+        new_list.next = l1 or l2
         return dummy_node.next
-      
+
       
 #Test:
 def create_nodelist_from_list(node_list) -> Optional[ListNode]:
